@@ -1,7 +1,7 @@
 #!/bin/bash
 ################################################################################
 #                                                                              #
-#        EOSeoul Testnet builder for developers                                #
+#        EOSeoul multi voter                                                   #
 #        made by Sungmin.Ma @2018.04                                           #
 #                                                                              #
 #        visit to http://eoseoul.io                                            #
