@@ -9,8 +9,7 @@
 #                                                                              #
 ################################################################################
 
-#RPC="http://user-api.eoseoul.io"
-RPC="http://localhost:6601"
+RPC="http://user-api.eoseoul.io"
 CLE_BIN="$(pwd)/cleos/cleos"
 WLT_DIR="$(pwd)/_WLTDIR"
 CLE="$CLE_BIN -u $RPC --wallet-url=http://127.0.0.1:54321"
@@ -59,8 +58,7 @@ keosd_stop() {
   rm -rf $WLT_DIR
   exit 1
 }
-#RPC_CHK=$($CLE get info | grep "843ed645" | wc -l)
-RPC_CHK=1
+RPC_CHK=$($CLE get info | grep "843ed645" | wc -l)
 if [ $RPC_CHK -eq 0 ]
 then
   echo " >> RPC url is not correct or RPC server version is not EOS mainnet version"
