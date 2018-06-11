@@ -10,10 +10,11 @@
 ################################################################################
 
 RPC="http://user-api.eoseoul.io"
-CLE_BIN="$(pwd)/cleos/cleos"
+# First. Edit to EOS Source dir!!
+EOS_SOURCE_DIR="/home/eos/testnet/eos_src"
 WLT_DIR="$(pwd)/_WLTDIR"
+CLE_BIN="$EOS_SOURCE_DIR/build/programs/cleos/cleos"
 CLE="$CLE_BIN -u $RPC --wallet-url=http://127.0.0.1:54321"
-_sleeptime="0.5"
 
 echo_f ()
 {
@@ -30,6 +31,11 @@ echo_ret () {
   [ $2 -eq 0 ] && echo_s || echo_f
 }
 
+if [ ! -d $SOURCE_DIR ]; then
+  echo "  !!! Edit EOS_SOURCE_DIR in the script."
+  exit 1
+fi
+
 if [ $# -lt 2 ]; then
   echo
   echo " Usage: $0 [keyfile] [Producer]"
@@ -43,7 +49,7 @@ fi
 
 
 if [ ! -x $CLE_BIN ]; then
-  echo " >> cleos binary is not found. please script set on 'eos_source/build/programs' directory"
+  echo " >> cleos binary is not found."
   exit 1
 fi
 
@@ -68,7 +74,7 @@ fi
 
 echo " >> Run keosd daemon"
 mkdir $WLT_DIR
-echo "$(pwd)/keosd/keosd --data-dir $WLT_DIR --http-server-address=127.0.0.1:54321 >> $WLT_DIR/stdout.txt 2>> $WLT_DIR/stderr.txt & echo \$! > $WLT_DIR/keosd.pid" >> $WLT_DIR/wlt.sh
+echo "$EOS_SOURCE_DIR/build/programs/keosd/keosd --data-dir $WLT_DIR --http-server-address=127.0.0.1:54321 >> $WLT_DIR/stdout.txt 2>> $WLT_DIR/stderr.txt & echo \$! > $WLT_DIR/keosd.pid" >> $WLT_DIR/wlt.sh
 chmod +x $WLT_DIR/wlt.sh
 $WLT_DIR/wlt.sh
 sleep 1;
@@ -95,7 +101,7 @@ while IFS=, read PUBKEY PRIVKEY; do
   fi
   $CLE system voteproducer approve $_account $_producer  >> $WLT_DIR/stdout.txt 2>&1
   echo_ret " -- Producer Voting $_account to $_producer : " $?
-  sleep $_sleeptime
+  sleep 0.6
 echo "======================================================"
 done < <( cat $1 | sed "s/\ //g") 
 
