@@ -5,14 +5,12 @@ cleos_voter for multi account
 cleos_voter has been created by users with multiple EOS accounts to easily make Producer votes.
 
 ### Voting
-move the voter script to EOS_SOURCE_DIRECTORY/build/programs/at the bottom
-Set the Execute permission to run the script.
-
+1. Edit EOS_SOURCE_DIR in the script.
+2. Set the Execute permission to run the script.
 ```
-cp -a voter.sh ~/eos_src/build/programs/voter.sh
+vi voter.sh # edit to EOS_SOURCE_DIR 
 chmod + x voter.sh
-cd ~/eos_src/build/programs/
-./voter.sh _KEYFILE _PRODUCER
+./voter.sh sample_keyfile eoseouldotio
 ```
-
-Please refer to the sample file attached with the configuration of the key file.
+The keyfile_sample file is an account that does not exist.
+Please give reference only because it is a sample.
